@@ -23,7 +23,8 @@ function Login() {
       const dataString = JSON.stringify(token);
 
       localStorage.setItem('token', dataString);
-      return navigate("/register");
+
+      navigate("/boards/");
 
     } catch (error) {
       setError("Erreur lors de la connexion. Veuillez vérifier vos identifiants.");

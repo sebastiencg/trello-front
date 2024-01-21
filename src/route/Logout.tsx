@@ -3,7 +3,6 @@ import {useEffect} from "react";
 
 const Logout = () => {
 
-
   const storedData:string|null = localStorage.getItem('token');
   const navigate = useNavigate();
 
@@ -11,7 +10,6 @@ const Logout = () => {
     if (storedData){
       localStorage.removeItem('token')
       navigate("/login");
-
     }
     }, [navigate, storedData]);
   return (

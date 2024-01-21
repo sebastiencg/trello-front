@@ -14,7 +14,7 @@ export function Navbar() {
 
   useEffect(() => {
     return readLocalStorage()
-  }, );
+  },);
   return (
       <>
         <header className="masthead">
@@ -23,17 +23,29 @@ export function Navbar() {
 
             <button className=" boards-btn btn">
               {state ? (
-                <span>connected </span>
+                <>
+                  <span>connected </span>
+                </>
+
               ) : (
                 <span>no connected</span>
               )}
             </button>
-
+            <div className="boards-menu">
+              {state ? (
+                <>
+                  <Link className="boards-btn btn no-decoration" to="/boards/">
+                    boards
+                  </Link>
+                </>
+              ) : null}
+            </div>
           </div>
+
 
           <div className="logo">
 
-            <h1><i className="fab fa-trello logo-icon" aria-hidden="true"></i>
+          <h1><i className="fab fa-trello logo-icon" aria-hidden="true"></i>
               trello
             </h1>
 
