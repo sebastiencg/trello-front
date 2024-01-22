@@ -3,6 +3,7 @@ import { Navbar } from "../Navbar.tsx";
 import {useEffect, useState} from "react";
 import Jwt from "../jwt/Jwt.tsx";
 import axios from "axios";
+import BoardOption from "../BoardOption.tsx";
 
 type Board = {
   id: number;
@@ -78,8 +79,6 @@ function Board() {
 
   return (
     <>
-
-
       <Navbar></Navbar>
       <section className="board-info-bar">
 
@@ -89,20 +88,16 @@ function Board() {
             <h2 >{board?.name}</h2>
           </button>
 
-          <button className="star-btn btn" aria-label="Star Board">
-            <i className="far fa-star" aria-hidden="true"></i>
-          </button>
+          <BoardOption></BoardOption>
 
         </div>
       </section>
       <section className="lists-container">
-
         {lists.map((list) => (
           <>
-            <div className="list" >
+            <div className="list">
 
-              <h3 className="list-title" key={list.id}>{list.name}</h3>
-
+              <h3 className="list-title btn" key={list.id}>{list.name}</h3>
               <ul className="list-items">
                 {cards
                   .filter((card) => card.list === list.id)
