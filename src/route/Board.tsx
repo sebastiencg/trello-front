@@ -1,4 +1,4 @@
-import { useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import { Navbar } from "../Navbar.tsx";
 import {useEffect, useState} from "react";
 import Jwt from "../jwt/Jwt.tsx";
@@ -110,12 +110,15 @@ function Board() {
                     <li key={filteredCard.id}>{filteredCard.name}</li>
                   ))}
               </ul>
-              <button className="add-card-btn btn">Add a card</button>
+              <Link className="add-card-btn btn no-decoration" to={`/board/${board?.id}/list/${list.id}/new/card`}>
+                Add a card
+              </Link>
             </div>
           </>
         ))}
-        <button className="add-list-btn btn">Add a list</button>
-
+        <Link className="add-list-btn btn no-decoration" to={`/board/${board?.id}/new/list`}>
+          Add a list
+        </Link>
       </section>
     </>
 

@@ -1,32 +1,30 @@
 import { Navbar } from "../Navbar.tsx";
 import axios from "axios";
 import Jwt from "../jwt/Jwt.tsx";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 
-function Boards() {
+function List() {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [error, setError] = useState("");
 
-  const newBoard = async (e: { preventDefault: () => void; }) =>{
+  const newList = async (e: { preventDefault: () => void; }) =>{
 
     e.preventDefault();
     const token = await Jwt();
 
     if (token){
       try {
-        const response = await axios.post("https://django.miantsebastien.com/api/board/new/", {
-          name: name,
-          description: description
-          ,
+        const response = await axios.post(`https://django.miantsebastien.com/api/board/${id}/list/new/`, {
+          name: name
         },{
           headers: {'Authorization': `Bearer ${token}`}
         });
 
         response.data
-        return navigate("/boards/");
+        return navigate(`/board/${id}/ `);
 
       } catch (error) {
         setError("vérifiez votre formulaire");
@@ -44,20 +42,16 @@ function Boards() {
           <div className="form">
             <div className="login">
               <div className="login-header">
-                <h2 className="text-perso">creation d'un tableau</h2>
+                <h2 className="text-perso">creation d'une list</h2>
               </div>
             </div>
 
-            <form className="login-form" onSubmit={newBoard}>
+            <form className="login-form" onSubmit={newList}>
               <input
                 type="text"
                 placeholder="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-              />
-              <input  placeholder="description"
-                         value={description}
-                         onChange={(e) => setDescription(e.target.value)}
               />
               <button type="submit">Créer</button>
             </form>
@@ -75,4 +69,4 @@ function Boards() {
   );
 }
 
-export default Boards;
+export default List;
