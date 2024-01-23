@@ -23,6 +23,21 @@ function Login() {
       const dataString = JSON.stringify(token);
 
       localStorage.setItem('token', dataString);
+      try {
+        const response = await axios.get("https://django.miantsebastien.com/api/user/", {
+          headers: { 'Authorization': `Bearer ${token.access}` }
+        });
+        const user = { id: response.data.id, username: response.data.username };
+
+        response.data
+
+        const dataString = JSON.stringify(user);
+
+        localStorage.setItem('user', dataString);
+
+      } catch (error) {
+        setError("Erreur lors de la connexion. Veuillez vérifier vos identifiants.");
+      }
 
       navigate("/boards/");
 

@@ -1,15 +1,17 @@
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
-
+type user = {
+  id: number;
+  username: string;
+};
 export function Navbar() {
 
-  const [state, setState] = useState(false)
+  const [user, setUser] = useState<user|null>()
 
   function readLocalStorage(){
-    const storedData:string|null = localStorage.getItem('token');
-    if (storedData){
-      return setState(true)
-    }
+    const storedData:string|null = localStorage.getItem('user');
+    const user = storedData ? JSON.parse(storedData) : null;
+    setUser(user)
   }
 
   useEffect(() => {
@@ -22,9 +24,9 @@ export function Navbar() {
           <div className="boards-menu">
 
             <button className=" boards-btn btn">
-              {state ? (
+              {user ? (
                 <>
-                  <span>connected </span>
+                  <span>{user.username}.{user.id} </span>
                 </>
 
               ) : (
@@ -32,7 +34,7 @@ export function Navbar() {
               )}
             </button>
             <div className="boards-menu">
-              {state ? (
+              {user ? (
                 <>
                   <Link className="boards-btn btn no-decoration" to="/boards/">
                     boards
@@ -40,6 +42,7 @@ export function Navbar() {
                 </>
               ) : null}
             </div>
+
           </div>
 
 
@@ -52,7 +55,7 @@ export function Navbar() {
           </div>
 
           <div className="user-settings">
-            {state ? (
+            {user ? (
               <><Link className=" boards-btn btn no-decoration" to="/logout">
                 Logout
               </Link></>

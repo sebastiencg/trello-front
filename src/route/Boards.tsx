@@ -20,20 +20,24 @@ function Boards() {
     async function fetchData() {
 
       const token = await Jwt();
-      try {
-        if (token) {
+      if (token){
+        try {
+          if (token) {
 
-          const response = await axios.get("https://django.miantsebastien.com/api/boards/", {
-            headers: {'Authorization': `Bearer ${token}`}
-          });
-          setItems(response.data);
-        }
-        else {
+            const response = await axios.get("https://django.miantsebastien.com/api/boards/", {
+              headers: {'Authorization': `Bearer ${token}`}
+            });
+            setItems(response.data);
+          }
+        } catch (error) {
+          console.log(error)
           navigate("/login");
         }
-      } catch (error) {
+      }else {
         navigate("/login");
+
       }
+
     }
 
     fetchData();
