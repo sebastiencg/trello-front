@@ -2,59 +2,61 @@ import { Navbar } from "../compoment/Navbar.tsx";
 import axios from "axios";
 import Jwt from "../jwt/Jwt.tsx";
 import {useNavigate, useParams} from "react-router-dom";
-import { useState} from "react";
+import {useState} from "react";
 import BoardOption from "../compoment/BoardOption.tsx";
 
-function DeleteBoard() {
-  const navigate = useNavigate();
-  const [error, setError] = useState("");
+function AddUser() {
   const { id } = useParams();
-  const deleteBoard = async (e: { preventDefault: () => void; }) =>{
+
+  const navigate = useNavigate();
+  const [userId, setUserId] = useState("");
+  const [error, setError] = useState("");
+
+  const addUser = async (e: { preventDefault: () => void; }) =>{
 
     e.preventDefault();
-
     const token = await Jwt();
 
     if (token){
       try {
-        const response = await axios.delete(`https://django.miantsebastien.com/api/board/delete/${id}/`,{
+        const response = await axios.post(`https://django.miantsebastien.com/api/board/add/user/${id}/`, {
+          id: userId
+        },{
           headers: {'Authorization': `Bearer ${token}`}
         });
-
-        console.log(response.data.detail)
-
-        if (response.data.detail == "No good author."){
-          setError("Vous n'êtes pas l'auteur de ce tableau ou erreur server");
-        }
-        else {
-          return navigate(`/boards/`);
-
-        }
+        response.data
+        return navigate(`/board/${id}/ `);
 
       } catch (error) {
-        console.log(error)
-        setError("Vous n'êtes pas l'auteur de ce tableau ou erreur server");
+        setError("vérifiez id de l'utilisateur");
       }
     }
     else {
       navigate("/login");
     }
   }
-
-
   return (
     <>
       <Navbar></Navbar>
       <BoardOption></BoardOption>
-      <>
-        <div className="login-page">
+
+      <div className="login-page">
           <div className="form">
             <div className="login">
               <div className="login-header">
-                <h2 className="text-perso">supprimer le tableau</h2>
+                <h2 className="text-perso">ajouter un membre</h2>
               </div>
             </div>
-              <button  onClick={deleteBoard}>supprimer</button>
+
+            <form className="login-form" onSubmit={addUser}>
+              <input
+                type="number"
+                placeholder="ID a ajouter"
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+              />
+              <button type="submit">Ajouter</button>
+            </form>
             {error && (
               <div className="alert alert-danger" role="alert">
                 <p className="text-danger">{error}</p>
@@ -63,10 +65,10 @@ function DeleteBoard() {
           </div>
         </div>
       </>
+  )
 
-    </>
 
-  );
+  ;
 }
 
-export default DeleteBoard;
+export default AddUser;

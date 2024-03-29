@@ -1,9 +1,9 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
-import { Navbar } from "../Navbar.tsx";
+import { Navbar } from "../compoment/Navbar.tsx";
 import {useEffect, useState} from "react";
 import Jwt from "../jwt/Jwt.tsx";
 import axios from "axios";
-import BoardOption from "../BoardOption.tsx";
+import BoardOption from "../compoment/BoardOption.tsx";
 
 type Board = {
   id: number;
@@ -25,7 +25,7 @@ type Card = {
   list: number;
 
 };
-function Board() {
+function BoardComponent() {
   const { id } = useParams();
   const [board, setBoard] = useState<Board>();
   const[lists, setList] = useState<List[]>([]);
@@ -53,6 +53,7 @@ function Board() {
               const responseCard = await axios.get(`https://django.miantsebastien.com/api/list/${list.id}/cards/`, {
                 headers: { 'Authorization': `Bearer ${token}` }
               });
+              console.log(responseCard.data)
               return responseCard.data;
             } catch (error) {
               console.log(error);
@@ -79,45 +80,44 @@ function Board() {
 
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar />
       <section className="board-info-bar">
-
         <div className="board-controls">
-
           <button className="board-title btn">
-            <h2 >{board?.name}</h2>
+            <h2>{board?.name}</h2>
           </button>
-
-          <BoardOption></BoardOption>
-
+          <BoardOption />
         </div>
       </section>
       <section className="lists-container">
-        {lists.map((list) => (
-          <>
-            <div className="list">
+        {lists.map((list) => {
+          const filteredAndSortedCards = cards
+            .filter((card) => card.list === list.id)
+            .sort((a, b) => b.importance - a.importance);
 
-              <h3 className="list-title btn" key={list.id}>{list.name}</h3>
+          return (
+            <div className="list" key={list.id}>
+              <h3 className="list-title btn">{list.name}</h3>
               <ul className="list-items">
-                {cards
-                  .filter((card) => card.list === list.id)
-                  .map((filteredCard) => (
-                    <li key={filteredCard.id}>{filteredCard.name}</li>
-                  ))}
+                {filteredAndSortedCards.map((filteredCard) => (
+                  <li key={filteredCard.id}>
+                    {filteredCard.name}
+                    <span style={{ marginLeft: '1em' }}>{filteredCard.importance}</span>
+                  </li>
+                ))}
               </ul>
               <Link className="add-card-btn btn no-decoration" to={`/board/${board?.id}/list/${list.id}/new/card`}>
                 Add a card
               </Link>
             </div>
-          </>
-        ))}
+          );
+        })}
         <Link className="add-list-btn btn no-decoration" to={`/board/${board?.id}/new/list`}>
           Add a list
         </Link>
       </section>
     </>
-
   );
 }
 
-export default Board;
+export default BoardComponent;
