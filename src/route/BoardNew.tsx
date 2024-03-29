@@ -1,4 +1,4 @@
-import { Navbar } from "../Navbar.tsx";
+import { Navbar } from "../compoment/Navbar.tsx";
 import axios from "axios";
 import Jwt from "../jwt/Jwt.tsx";
 import {useNavigate} from "react-router-dom";

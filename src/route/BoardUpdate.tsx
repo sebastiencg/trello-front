@@ -1,10 +1,18 @@
-import { Navbar } from "../Navbar.tsx";
+import { Navbar } from "../compoment/Navbar.tsx";
 import axios from "axios";
 import Jwt from "../jwt/Jwt.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import Board from "./Board.tsx";
-import BoardOption from "../BoardOption.tsx";
+import BoardOption from "../compoment/BoardOption.tsx";
+
+
+type Board = {
+  id: number;
+  name: string;
+  description: string;
+  author:string;
+  datetime:string
+};
 
 function BoardDelete() {
   const navigate = useNavigate();
@@ -16,28 +24,33 @@ function BoardDelete() {
   const updateBoard = async (e: { preventDefault: () => void; }) =>{
 
     e.preventDefault();
-    const token = await Jwt();
-
-    if (token){
-      try {
-        const response = await axios.patch(`https://django.miantsebastien.com/api/board/update/${id}/`, {
-          name: name,
-          description: description
-          ,
-        },{
-          headers: {'Authorization': `Bearer ${token}`}
-        });
-
-        response.data
-        return navigate(`/board/${id}`);
-
-      } catch (error) {
-        console.log(error)
-        setError("vérifiez votre formulaire");
-      }
+    if (name == "" || description == ""){
+      setError("vérifiez votre formulaire");
     }
     else {
-      navigate("/login");
+      const token = await Jwt();
+
+      if (token){
+        try {
+          const response = await axios.patch(`https://django.miantsebastien.com/api/board/update/${id}/`, {
+            name: name,
+            description: description
+            ,
+          },{
+            headers: {'Authorization': `Bearer ${token}`}
+          });
+
+          response.data
+          return navigate(`/board/${id}`);
+
+        } catch (error) {
+          console.log(error)
+          setError("vous ne pouvais pas modifier le tableau");
+        }
+      }
+      else {
+        navigate("/login");
+      }
     }
   }
 
@@ -51,7 +64,7 @@ function BoardDelete() {
           });
           setBoard(responseBoard.data);
         } catch (error) {
-          console.log(error);
+          error
         }
       }
 
