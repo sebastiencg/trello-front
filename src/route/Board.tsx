@@ -11,6 +11,8 @@ type Board = {
   description: string;
   author:string;
   datetime:string
+  members: number[];
+
 };
 type List = {
   id: number;
@@ -31,6 +33,7 @@ function BoardComponent() {
   const[lists, setList] = useState<List[]>([]);
   const[cards, setCard] = useState<Card[]>([]);
 
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,8 +44,12 @@ function BoardComponent() {
           const responseBoard = await axios.get(`https://django.miantsebastien.com/api/board/${id}/`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
+          const storedData: string | null = localStorage.getItem('user');
+          const user = storedData ? JSON.parse(storedData) : null;
           setBoard(responseBoard.data);
-
+          if (!responseBoard.data.members.includes(user.id)){
+            navigate("/boards/");
+          }
           const responseList = await axios.get(`https://django.miantsebastien.com/api/board/${id}/lists/`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
@@ -53,7 +60,6 @@ function BoardComponent() {
               const responseCard = await axios.get(`https://django.miantsebastien.com/api/list/${list.id}/cards/`, {
                 headers: { 'Authorization': `Bearer ${token}` }
               });
-              console.log(responseCard.data)
               return responseCard.data;
             } catch (error) {
               console.log(error);

@@ -1,7 +1,7 @@
 import '../stylesheet/Register.css';
 import axios from "axios";
 import { useState } from "react";
-import {Navbar} from "../Navbar.tsx";
+import {Navbar} from "../compoment/Navbar.tsx";
  import { useNavigate} from "react-router-dom";
 
 function Login() {

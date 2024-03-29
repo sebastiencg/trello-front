@@ -1,4 +1,4 @@
-import { Navbar } from "../Navbar.tsx";
+import { Navbar } from "../compoment/Navbar.tsx";
 import axios from "axios";
 import Jwt from "../jwt/Jwt.tsx";
 import {useNavigate, useParams} from "react-router-dom";
@@ -9,7 +9,6 @@ function List() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [error, setError] = useState("");
-
   const newList = async (e: { preventDefault: () => void; }) =>{
 
     e.preventDefault();
