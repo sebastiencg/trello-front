@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import Jwt from "../jwt/Jwt.tsx";
 import axios from "axios";
 import BoardOption from "../compoment/BoardOption.tsx";
+import {ListOption} from "../compoment/ListOption.tsx";
 
 type Board = {
   id: number;
@@ -12,7 +13,6 @@ type Board = {
   author:string;
   datetime:string
   members: number[];
-
 };
 type List = {
   id: number;
@@ -32,9 +32,13 @@ function BoardComponent() {
   const [board, setBoard] = useState<Board>();
   const[lists, setList] = useState<List[]>([]);
   const[cards, setCard] = useState<Card[]>([]);
+  const [showOverlay, setShowOverlay] = useState(false); // Initialiser l'état à true
+  const [selectedListName, setSelectedListName] = useState(""); // État pour stocker le nom de la liste sélectionnée
+  const [selectedListId, setSelectedListId] = useState<number>(0); // État pour stocker le nom de la liste sélectionnée
 
 
   const navigate = useNavigate();
+
 
   useEffect(() => {
     async function fetchData() {
@@ -87,6 +91,7 @@ function BoardComponent() {
   return (
     <>
       <Navbar />
+      <ListOption showOverlay={showOverlay} setShowOverlay={setShowOverlay} selectedListName={selectedListName} selectedListId={selectedListId} />
       <section className="board-info-bar">
         <div className="board-controls">
           <button className="board-title btn">
@@ -103,12 +108,22 @@ function BoardComponent() {
 
           return (
             <div className="list" key={list.id}>
-              <h3 className="list-title btn">{list.name}</h3>
+              <h3
+                className="list-title btn"
+                onClick={() => {
+                  setSelectedListName(list.name);
+                  setSelectedListId(list.id);
+
+                  setShowOverlay(!showOverlay);
+                }}
+              >
+                {list.name}{" "}
+              </h3>
               <ul className="list-items">
                 {filteredAndSortedCards.map((filteredCard) => (
                   <li key={filteredCard.id}>
                     {filteredCard.name}
-                    <span style={{ marginLeft: '1em' }}>{filteredCard.importance}</span>
+                    <span style={{marginLeft: '1em'}}>{filteredCard.importance}</span>
                   </li>
                 ))}
               </ul>
@@ -123,7 +138,8 @@ function BoardComponent() {
         </Link>
       </section>
     </>
-  );
+  )
+    ;
 }
 
 export default BoardComponent;

@@ -1,4 +1,4 @@
-import { Navbar } from "../Navbar.tsx";
+import { Navbar } from "../compoment/Navbar.tsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {Link, useNavigate} from "react-router-dom";
@@ -27,6 +27,7 @@ function Boards() {
             const response = await axios.get("https://django.miantsebastien.com/api/boards/", {
               headers: {'Authorization': `Bearer ${token}`}
             });
+            console.log(response.data)
             setItems(response.data);
           }
         } catch (error) {

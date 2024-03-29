@@ -23,12 +23,23 @@ function Board() {
               <i>supprimer Board</i>
             </Link>
           </button>
+          <button className="star-btn btn" aria-label="Star Board">
+            <Link className="star-btn btn no-decoration" to={`/board/${id}/add/user`}>
+              <i>ajouter utiulisateur</i>
+            </Link>
+          </button>
+          <button className="star-btn btn" aria-label="Star Board">
+            <Link className="star-btn btn no-decoration" to={`/board/${id}/remove/user`}>
+              <i>supprimer utiulisateur</i>
+            </Link>
+          </button>
         </div>
       </section>
 
     </>
 
-  );
+  )
+    ;
 }
 
 export default Board;
