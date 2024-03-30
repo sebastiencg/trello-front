@@ -33,7 +33,7 @@ function BoardComponent() {
   const [board, setBoard] = useState<Board>();
   const[lists, setList] = useState<List[]>([]);
   const[cards, setCard] = useState<Card[]>([]);
-  const [showOverlay, setShowOverlay] = useState(false); // Initialiser l'état à true
+  const [showOverlayList, setShowOverlayList] = useState(false); // Initialiser l'état à true
   const [selectedListName, setSelectedListName] = useState(""); // État pour stocker le nom de la liste sélectionnée
   const [selectedListId, setSelectedListId] = useState<number>(0); // État pour stocker le nom de la liste sélectionnée
 
@@ -92,7 +92,7 @@ function BoardComponent() {
   return (
     <>
       <Navbar />
-      <ListOption showOverlay={showOverlay} setShowOverlay={setShowOverlay} selectedListName={selectedListName} selectedListId={selectedListId} />
+      <ListOption showOverlay={showOverlayList} setShowOverlay={setShowOverlayList} selectedListName={selectedListName} selectedListId={selectedListId} />
       <section className="board-info-bar">
         <div className="board-controls">
           <button className="board-title btn">
@@ -115,7 +115,7 @@ function BoardComponent() {
                   setSelectedListName(list.name);
                   setSelectedListId(list.id);
 
-                  setShowOverlay(!showOverlay);
+                  setShowOverlayList(!showOverlayList);
                 }}
               >
                 {list.name}{" "}
