@@ -2,7 +2,7 @@ import '../stylesheet/Register.css'
 import {useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {Navbar} from "../Navbar.tsx";
+import {Navbar} from "../compoment/Navbar.tsx";
 function Register() {
 
   const [username, setUsername] = useState("");
