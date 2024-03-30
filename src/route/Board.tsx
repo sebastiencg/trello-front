@@ -40,6 +40,8 @@ function BoardComponent() {
   const [showOverlayCard, setShowOverlayCard] = useState(false); // Initialiser l'état à true
   const [selectedCardName, setSelectedCardName] = useState(""); // État pour stocker le nom de la liste sélectionnée
   const [selectedCardId, setSelectedCardId] = useState<number>(0); // État pour stocker le nom de la liste sélectionnée
+  const [selectedCardDescription, setSelectedCardDescription] = useState(""); // État pour stocker le nom de la liste sélectionnée
+  const [selectedCardImportance, setSelectedCardImportance] = useState<number>(0); // État pour stocker le nom de la liste sélectionnée
 
 
   const navigate = useNavigate();
@@ -97,7 +99,7 @@ function BoardComponent() {
     <>
       <Navbar />
       <ListOption showOverlay={showOverlayList} setShowOverlay={setShowOverlayList} selectedListName={selectedListName} selectedListId={selectedListId} />
-      <CardOption showOverlayCard={showOverlayCard} setShowOverlayCard={setShowOverlayCard} selectedCardName={selectedCardName} selectedCardId={selectedCardId} />
+      <CardOption showOverlayCard={showOverlayCard} setShowOverlayCard={setShowOverlayCard} selectedCardName={selectedCardName} selectedCardId={selectedCardId} selectedCardDescription={selectedCardDescription} selectedCardImportance={selectedCardImportance} />
       <section className="board-info-bar">
         <div className="board-controls">
           <button className="board-title btn">
@@ -119,10 +121,10 @@ function BoardComponent() {
                 onClick={() => {
                   setSelectedListName(list.name);
                   setSelectedListId(list.id);
-
                   setShowOverlayList(!showOverlayList);
                 }}
               >
+
                 {list.name}{" "}
               </h3>
               <ul className="list-items">
@@ -130,10 +132,10 @@ function BoardComponent() {
                   <li key={filteredCard.id} onClick={() => {
                     setSelectedCardName(filteredCard.name);
                     setSelectedCardId(filteredCard.id);
-
+                    setSelectedCardDescription(filteredCard.description)
+                    setSelectedCardImportance(filteredCard.importance)
                     setShowOverlayCard(!showOverlayCard);
                   }}>
-
                     {filteredCard.name}
                     <span style={{marginLeft: '1em'}}>{filteredCard.importance}</span>
                   </li>
