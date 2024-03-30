@@ -6,6 +6,7 @@ import axios from "axios";
 import BoardOption from "../compoment/BoardOption.tsx";
 import {ListOption} from "../compoment/ListOption.tsx";
 import Board from "../compoment/BoardOption.tsx";
+import {CardOption} from "../compoment/CardOption.tsx";
 
 type Board = {
   id: number;
@@ -36,6 +37,9 @@ function BoardComponent() {
   const [showOverlayList, setShowOverlayList] = useState(false); // Initialiser l'état à true
   const [selectedListName, setSelectedListName] = useState(""); // État pour stocker le nom de la liste sélectionnée
   const [selectedListId, setSelectedListId] = useState<number>(0); // État pour stocker le nom de la liste sélectionnée
+  const [showOverlayCard, setShowOverlayCard] = useState(false); // Initialiser l'état à true
+  const [selectedCardName, setSelectedCardName] = useState(""); // État pour stocker le nom de la liste sélectionnée
+  const [selectedCardId, setSelectedCardId] = useState<number>(0); // État pour stocker le nom de la liste sélectionnée
 
 
   const navigate = useNavigate();
@@ -93,6 +97,7 @@ function BoardComponent() {
     <>
       <Navbar />
       <ListOption showOverlay={showOverlayList} setShowOverlay={setShowOverlayList} selectedListName={selectedListName} selectedListId={selectedListId} />
+      <CardOption showOverlayCard={showOverlayCard} setShowOverlayCard={setShowOverlayCard} selectedCardName={selectedCardName} selectedCardId={selectedCardId} />
       <section className="board-info-bar">
         <div className="board-controls">
           <button className="board-title btn">
@@ -122,7 +127,13 @@ function BoardComponent() {
               </h3>
               <ul className="list-items">
                 {filteredAndSortedCards.map((filteredCard) => (
-                  <li key={filteredCard.id}>
+                  <li key={filteredCard.id} onClick={() => {
+                    setSelectedCardName(filteredCard.name);
+                    setSelectedCardId(filteredCard.id);
+
+                    setShowOverlayCard(!showOverlayCard);
+                  }}>
+
                     {filteredCard.name}
                     <span style={{marginLeft: '1em'}}>{filteredCard.importance}</span>
                   </li>
