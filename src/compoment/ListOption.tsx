@@ -1,5 +1,5 @@
 import '../stylesheet/listOption.css'
-import {Link} from "react-router-dom";
+import {Link, useParams,} from "react-router-dom";
 interface ListOptionProps {
   showOverlay: boolean;
   setShowOverlay: (value: boolean) => void;
@@ -11,6 +11,7 @@ export function ListOption({ showOverlay, setShowOverlay, selectedListName,selec
   const toggleOverlay = () => {
     setShowOverlay(!showOverlay); // Modifier l'état dans ListOption
   };
+  const { id } = useParams();
 
   return (
     <div>
@@ -18,11 +19,12 @@ export function ListOption({ showOverlay, setShowOverlay, selectedListName,selec
         <div className="overlay">
           <h2>{selectedListName}</h2> {/* Afficher le nom de la liste sélectionnée */}
           <ul className="list-items btn">
-            <Link className="star-btn btn no-decoration" to={`/list/${selectedListId}/delete`}>
+            <Link className="star-btn btn no-decoration" to={`/board/${id}/list/${selectedListId}/delete`}>
               <li>supprimer la list</li>
             </Link>
-            <li>Élément 2</li>
-            <li>Élément 3</li>
+            <Link className="star-btn btn no-decoration" to={`/board/${id}/list/${selectedListId}/update`}>
+              <li>modifier la list</li>
+            </Link>
           </ul>
           <button onClick={toggleOverlay} className="btn">Fermer</button>
         </div>
