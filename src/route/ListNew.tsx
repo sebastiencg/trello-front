@@ -2,13 +2,15 @@ import { Navbar } from "../compoment/Navbar.tsx";
 import axios from "axios";
 import Jwt from "../jwt/Jwt.tsx";
 import {useNavigate, useParams} from "react-router-dom";
-import {useState} from "react";
+import { useState} from "react";
+
 
 function List() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [error, setError] = useState("");
+
   const newList = async (e: { preventDefault: () => void; }) =>{
 
     e.preventDefault();
@@ -49,7 +51,6 @@ function List() {
               <input
                 type="text"
                 placeholder="name"
-                value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               <button type="submit">Créer</button>
