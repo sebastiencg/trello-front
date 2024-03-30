@@ -5,6 +5,7 @@ import Jwt from "../jwt/Jwt.tsx";
 import axios from "axios";
 import BoardOption from "../compoment/BoardOption.tsx";
 import {ListOption} from "../compoment/ListOption.tsx";
+import Board from "../compoment/BoardOption.tsx";
 
 type Board = {
   id: number;
