@@ -9,6 +9,10 @@ import ListNew from "../route/ListNew.tsx";
 import CardNew from "../route/CardNew.tsx";
 import BoardUpdate from "../route/BoardUpdate.tsx";
 import BoardDelete from "../route/BoardDelete.tsx";
+import BoardAddUser from "../route/BoardAddUser.tsx";
+import BoardRemoveUser from "../route/BoardRemoveUser.tsx";
+import ListDelete from "../route/ListDelete.tsx";
+import ListUpdate from "../route/ListUpdate.tsx";
 
 const router = createBrowserRouter([
   //card
@@ -22,11 +26,27 @@ const router = createBrowserRouter([
     path: '/board/:id/new/list',
     element: <ListNew />,
   },
+  {
+    path: '/board/:boardId/list/:id/delete',
+    element: <ListDelete/>,
+  },
+  {
+    path: '/board/:boardId/list/:id/update',
+    element: <ListUpdate />,
+  },
   //end
   //board
   {
     path: '/board/:id',
     element: <Board />,
+  },
+  {
+    path: '/board/:id/add/user/',
+    element: <BoardAddUser />,
+  },
+  {
+    path: '/board/:id/remove/user/',
+    element: <BoardRemoveUser />,
   },
   {
     path: '/board/:id/update',
@@ -56,7 +76,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Login />,
+    element: <Boards />,
   },
   {
     path: '/logout',
