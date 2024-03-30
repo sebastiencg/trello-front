@@ -1,0 +1,34 @@
+.members-list {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.members-list h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.members-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.members-list li {
+  font-size: 16px;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.members-list li:hover {
+  background-color: #f0f0f0;
+}
