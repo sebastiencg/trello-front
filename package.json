@@ -1,9 +1,12 @@
 {
+  "homepage": "https://sebastiencg.github.io/trello-front",
   "name": "trello-front",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build ",
+    "deploy": "gh-pages -b master -d dist",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
