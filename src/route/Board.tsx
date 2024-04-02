@@ -42,6 +42,7 @@ function BoardComponent() {
   const [selectedCardId, setSelectedCardId] = useState<number>(0); // État pour stocker le nom de la liste sélectionnée
   const [selectedCardDescription, setSelectedCardDescription] = useState(""); // État pour stocker le nom de la liste sélectionnée
   const [selectedCardImportance, setSelectedCardImportance] = useState<number>(0); // État pour stocker le nom de la liste sélectionnée
+  const [allList, setAllList] = useState<{ id: number; name: string }[] | undefined>();
 
 
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ function BoardComponent() {
           const responseList = await axios.get(`https://django.miantsebastien.com/api/board/${id}/lists/`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
+          setAllList(responseList.data)
           setList(responseList.data);
 
           const cardPromises = responseList.data.map(async (list: { id: never; }) => {
@@ -99,7 +101,7 @@ function BoardComponent() {
     <>
       <Navbar />
       <ListOption showOverlay={showOverlayList} setShowOverlay={setShowOverlayList} selectedListName={selectedListName} selectedListId={selectedListId} />
-      <CardOption showOverlayCard={showOverlayCard} setShowOverlayCard={setShowOverlayCard} selectedCardName={selectedCardName} selectedCardId={selectedCardId} selectedCardDescription={selectedCardDescription} selectedCardImportance={selectedCardImportance} />
+      <CardOption showOverlayCard={showOverlayCard} setShowOverlayCard={setShowOverlayCard} selectedCardName={selectedCardName} selectedCardId={selectedCardId} selectedCardDescription={selectedCardDescription} selectedCardImportance={selectedCardImportance} selectedListId={selectedListId} allList={allList} selectedListName={selectedListName}/>
       <section className="board-info-bar">
         <div className="board-controls">
           <button className="board-title btn">
@@ -108,6 +110,7 @@ function BoardComponent() {
           <BoardOption />
         </div>
       </section>
+
       <section className="lists-container">
         {lists.map((list) => {
           const filteredAndSortedCards = cards
@@ -134,6 +137,8 @@ function BoardComponent() {
                     setSelectedCardId(filteredCard.id);
                     setSelectedCardDescription(filteredCard.description)
                     setSelectedCardImportance(filteredCard.importance)
+                    setSelectedListId(filteredCard.list)
+                    setSelectedListName(list.name)
                     setShowOverlayCard(!showOverlayCard);
                   }}>
                     {filteredCard.name}

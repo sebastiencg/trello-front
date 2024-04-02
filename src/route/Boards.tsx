@@ -27,7 +27,6 @@ function Boards() {
             const response = await axios.get("https://django.miantsebastien.com/api/boards/", {
               headers: {'Authorization': `Bearer ${token}`}
             });
-            console.log(response.data)
             setItems(response.data);
           }
         } catch (error) {
