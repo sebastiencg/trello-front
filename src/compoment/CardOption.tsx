@@ -39,7 +39,7 @@ export function CardOption({ showOverlayCard, setShowOverlayCard, selectedCardNa
             <Link className="star-btn btn no-decoration" to={`/board/${id}/list/${selectedListId}/card/${selectedCardId}/delete`}>
               <li>supprimer la card</li>
             </Link>
-            <Link className="star-btn btn no-decoration" to={`/board/${id}/list/${selectedListId}/update`}>
+            <Link className="star-btn btn no-decoration" to={`/board/${id}/list/${selectedListId}/card/${selectedCardId}/update`}>
               <li>modifier la card</li>
             </Link>
 

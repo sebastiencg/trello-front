@@ -14,6 +14,7 @@ import BoardRemoveUser from "../route/BoardRemoveUser.tsx";
 import ListDelete from "../route/ListDelete.tsx";
 import ListUpdate from "../route/ListUpdate.tsx";
 import CardDelete from "../route/CardDelete.tsx";
+import CardUpdate from "../route/CardUpdate.tsx";
 
 const router = createBrowserRouter([
   //card
@@ -26,8 +27,8 @@ const router = createBrowserRouter([
     element: <CardDelete/>,
   },
   {
-    path: '/board/:boardId/list/:listId/card/:id/change',
-    element: <CardDelete/>,
+    path: '/board/:boardId/list/:listId/card/:id/update',
+    element: <CardUpdate/>,
   },
   //end
   //list
