@@ -13,12 +13,21 @@ import BoardAddUser from "../route/BoardAddUser.tsx";
 import BoardRemoveUser from "../route/BoardRemoveUser.tsx";
 import ListDelete from "../route/ListDelete.tsx";
 import ListUpdate from "../route/ListUpdate.tsx";
+import CardDelete from "../route/CardDelete.tsx";
 
 const router = createBrowserRouter([
   //card
   {
     path: '/board/:boardId/list/:listId/new/card',
     element: <CardNew />,
+  },
+  {
+    path: '/board/:boardId/list/:listId/card/:id/delete',
+    element: <CardDelete/>,
+  },
+  {
+    path: '/board/:boardId/list/:listId/card/:id/change',
+    element: <CardDelete/>,
   },
   //end
   //list
