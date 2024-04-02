@@ -25,12 +25,12 @@ function Board() {
           </button>
           <button className="star-btn btn" aria-label="Star Board">
             <Link className="star-btn btn no-decoration" to={`/board/${id}/add/user`}>
-              <i>ajouter utiulisateur</i>
+              <i>ajouter utilisateur</i>
             </Link>
           </button>
           <button className="star-btn btn" aria-label="Star Board">
             <Link className="star-btn btn no-decoration" to={`/board/${id}/remove/user`}>
-              <i>supprimer utiulisateur</i>
+              <i>supprimer utilisateur</i>
             </Link>
           </button>
         </div>
