@@ -32,7 +32,7 @@ function ListUpdate() {
         });
 
         response.data
-        return navigate(`/board/${boardId}/ `);
+        return navigate(`/board/${boardId}/`);
 
       } catch (error) {
         setError("vérifiez votre formulaire");

@@ -25,7 +25,7 @@ function List() {
         });
 
         response.data
-        return navigate(`/board/${id}/ `);
+        return navigate(`/board/${id}/`);
 
       } catch (error) {
         setError("vérifiez votre formulaire");
