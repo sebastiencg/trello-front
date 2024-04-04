@@ -35,7 +35,8 @@ export function CardListChange({ showOverlayChangeList, setShowOverlayChangeList
     }
     console.log(selectedList)
     if (selectedList==null){
-      window.location.reload();    }
+      navigate(`/backUp/${id}`);
+    }
     else {
       try {
         const responseListChange = await axios.put(`https://django.miantsebastien.com/api/card/update/list/${selectedCardId}/`,{
@@ -44,7 +45,7 @@ export function CardListChange({ showOverlayChangeList, setShowOverlayChangeList
           headers: { 'Authorization': `Bearer ${token}` }
         })
         responseListChange
-        window.location.reload();
+        navigate(`/backUp/${id}`);
       } catch (error) {
         error
       }

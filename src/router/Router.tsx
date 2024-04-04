@@ -15,6 +15,7 @@ import ListDelete from "../route/ListDelete.tsx";
 import ListUpdate from "../route/ListUpdate.tsx";
 import CardDelete from "../route/CardDelete.tsx";
 import CardUpdate from "../route/CardUpdate.tsx";
+import BackUp from "../route/BackUp.tsx";
 
 const router = createBrowserRouter([
   //card
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: '/board/:id',
     element: <Board />,
+  },
+  {
+    path: '/backUp/:id',
+    element: <BackUp />,
   },
   {
     path: '/board/:id/add/user/',
